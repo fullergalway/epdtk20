@@ -25322,6 +25322,9 @@ let EpdConcreteElement = class EpdConcreteElement extends lit_element__WEBPACK_I
     <h1>concrete</h1>
     `;
     }
+    createRenderRoot() {
+        return this;
+    }
 };
 __decorate([
     (0,lit_element__WEBPACK_IMPORTED_MODULE_0__.property)(),
@@ -25458,6 +25461,9 @@ let EpdLoginRegisterElement = class EpdLoginRegisterElement extends lit_element_
             };
         };
     }
+    createRenderRoot() {
+        return this;
+    }
     render() {
         switch (this.form) {
             case Form.Alert:
@@ -25493,7 +25499,7 @@ let EpdLoginRegisterElement = class EpdLoginRegisterElement extends lit_element_
         name="email"
         value=${this.enteredEmail}
         required
-        .validityTransform = ${this.validateEmail} 
+        .validityTransform="${this.validateEmail}"
         dialogInitialFocus>
     </mwc-textfield>`;
     }
@@ -25655,7 +25661,7 @@ let EpdLoginRegisterElement = class EpdLoginRegisterElement extends lit_element_
               id="verification_code_textfield"
                   type="text"
                   label="Code"
-                  .validityTransform = ${this.validateVerificationCode}
+                  .validityTransform = "${this.validateVerificationCode}"
                   minLength=6
                   maxLength=6
                   required
@@ -25667,7 +25673,7 @@ let EpdLoginRegisterElement = class EpdLoginRegisterElement extends lit_element_
             id="new_password_textfield"
                 type="password"
                 label="New Password"
-                .validityTransform = ${this.validateNewPassword}
+                .validityTransform = "${this.validateNewPassword}"
                 required
                 >
             </mwc-textfield>
@@ -25676,7 +25682,7 @@ let EpdLoginRegisterElement = class EpdLoginRegisterElement extends lit_element_
             id="retype_password_textfield"
                 type="password"
                 label="Retype Password"
-                .validityTransform = ${this.validateRetypeNewPassword}
+                .validityTransform = "${this.validateRetypeNewPassword}"
                 required
                 >
             </mwc-textfield>
@@ -25709,7 +25715,7 @@ let EpdLoginRegisterElement = class EpdLoginRegisterElement extends lit_element_
             actions = lit_element__WEBPACK_IMPORTED_MODULE_0__.html `<mwc-circular-progress-four-color indeterminate></mwc-circular-progress-four-color>`;
         }
         return lit_element__WEBPACK_IMPORTED_MODULE_0__.html `
-    <mwc-dialog id="forgotten_password_dialog" open="${this.open}" heading="FORGOTTEN PASSWORD" stacked>
+    <mwc-dialog id="forgotten_password_dialog" ?open=${this.open} heading="FORGOTTEN PASSWORD" stacked>
     <div>
       <div>
       ${this.email_textfield}
@@ -26009,9 +26015,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "EpdMockup01Element": () => /* binding */ EpdMockup01Element
 /* harmony export */ });
-/* harmony import */ var lit_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lit-element */ "./node_modules/lit-element/lit-element.js");
-/* harmony import */ var _material_mwc_select__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/mwc-select */ "./node_modules/@material/mwc-select/mwc-select.js");
-/* harmony import */ var _material_mwc_list_mwc_list_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/mwc-list/mwc-list-item */ "./node_modules/@material/mwc-list/mwc-list-item.js");
+/* harmony import */ var _material_mwc_icon_mwc_icon__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @material/mwc-icon/mwc-icon */ "./node_modules/@material/mwc-icon/mwc-icon.js");
+/* harmony import */ var _material_mwc_button_mwc_button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/mwc-button/mwc-button */ "./node_modules/@material/mwc-button/mwc-button.js");
+/* harmony import */ var _material_mwc_list_mwc_list__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/mwc-list/mwc-list */ "./node_modules/@material/mwc-list/mwc-list.js");
+/* harmony import */ var lit_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lit-element */ "./node_modules/lit-element/lit-element.js");
+/* harmony import */ var _material_mwc_select__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material/mwc-select */ "./node_modules/@material/mwc-select/mwc-select.js");
+/* harmony import */ var _material_mwc_list_mwc_list_item__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material/mwc-list/mwc-list-item */ "./node_modules/@material/mwc-list/mwc-list-item.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -26024,58 +26033,163 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
 //import '@material/mwc-top-app-bar';
 //import {current_user} from './api-client';
-let EpdMockup01Element = class EpdMockup01Element extends lit_element__WEBPACK_IMPORTED_MODULE_0__.LitElement {
+const towns = ["Shellcour", "Eckshaw", "Bentmagne", "Alluitqaq", "Sioranavik", "Uummaqornat", "Coazapan",
+    "Camas", "Palenhuacan", "Fordwood", "Berpon", "Chesisle", "Witcola", "Beresder", "Chatrie", "Saatfik", "Qassiluk", "Maniitsup",
+    "Guayrida", "Nezareon", "Zumlao", "Maldale", "Haliford", "Oakisle", "Gibbourg", "Grettague", "Gretcona", "Kangermanaq", "Qajaat",
+    "Qaarsiaat", "Cosoleataro", "Huehuepantla", "Querejoa", "Darway", "Bradbron", "Smithton", "Eckmeuse", "Latchrood", "Holytane", "Maniisuaq",
+    "Kitsisuarrapaluk", "Qassithal", "Monjamo", "Veramanca", "Frestanejo", "Baldwell", "Romhampton", "Worlow", "Pinborg", "Parnola",
+    "Melivista", "Qasigiannsuit", "Kangilinnnaarsuk", "Qaarmik", "Chetutitlan", "Carcalco", "Acampan", "Brookson", "Aswick", "Portsware"];
+const surveys = [["2017"], ["2015", "2019"], ["2018"], ["2019"]];
+const companies = ["Hybrid Concrete Supply", "Northwest Rolling Mixers", "Pacific Mix Concrete", "Great Lakes Concrete"];
+const data = {
+    "companies": [],
+    "epds": []
+};
+companies.map(name => {
+    let company = {
+        name: name,
+        facilities: []
+    };
+    let n = Math.random() * 9 + 1;
+    for (let i = 0; i < n; i++) {
+        let survey = surveys.shift();
+        surveys.push(survey);
+        let fname = towns.shift();
+        towns.push(fname);
+        let facility = {
+            name: fname,
+            surveys: [],
+        };
+        survey.map(year => {
+            facility.surveys.push(year);
+            let j = Math.round(Math.random() * 12) + 1;
+            for (let k = 0; k < j; k++) {
+                let psi = Math.round(Math.random() * 28 + 25) * 100;
+                let mixno = Math.round(Math.random() * 800 + 20);
+                let epdname = `${psi}psi@28days mix ${mixno} ${company.name} ${facility.name} s${year}`;
+                data.epds.push({
+                    name: epdname,
+                    company: data.companies.length,
+                    facility: company.facilities.length,
+                    survey: facility.surveys.length - 1
+                });
+            }
+        });
+        towns.push(facility.name);
+        company.facilities.push(facility);
+    }
+    data.companies.push(company);
+});
+let EpdMockup01Element = class EpdMockup01Element extends lit_element__WEBPACK_IMPORTED_MODULE_3__.LitElement {
     constructor() {
-        super(...arguments);
-        this.chosen = '';
+        super();
+        this.companyIndex = -2;
+        this.facilityIndex = -2;
+        this.surveyIndex = -2;
+        console.log("data", data);
+    }
+    createRenderRoot() {
+        return this;
     }
     render() {
-        return lit_element__WEBPACK_IMPORTED_MODULE_0__.html `
+        let facilities = lit_element__WEBPACK_IMPORTED_MODULE_3__.html ``;
+        let surveys = lit_element__WEBPACK_IMPORTED_MODULE_3__.html ``;
+        if (this.companyIndex >= 0) {
+            let company = data["companies"][this.companyIndex];
+            facilities = company["facilities"].map((facility, i) => lit_element__WEBPACK_IMPORTED_MODULE_3__.html `<mwc-list-item value="${i}">${facility.name}</mwc-list-item>`);
+            if (this.facilityIndex >= 0) {
+                let facility = company["facilities"][this.facilityIndex];
+                surveys = facility["surveys"].map((survey, i) => lit_element__WEBPACK_IMPORTED_MODULE_3__.html `<mwc-list-item value="${i}">${survey}</mwc-list-item>`);
+            }
+        }
+        let createButton = lit_element__WEBPACK_IMPORTED_MODULE_3__.html ``;
+        if (this.surveyIndex >= 0) {
+            createButton = lit_element__WEBPACK_IMPORTED_MODULE_3__.html `<mwc-button raised
+        icon="library_add"
+        label="New Concrete">
+    </mwc-button>`;
+        }
+        let epds = data.epds.filter(epd => {
+            if (this.companyIndex < 0)
+                return true;
+            if (this.companyIndex != epd.company)
+                return false;
+            if (this.facilityIndex < 0)
+                return true;
+            if (this.facilityIndex !== epd.facility)
+                return false;
+            if (this.surveyIndex < 0)
+                return true;
+            if (this.surveyIndex !== epd.survey)
+                return false;
+            return true;
+        });
+        epds.sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
+        let epdlist = epds.map(epd => lit_element__WEBPACK_IMPORTED_MODULE_3__.html `<mwc-list-item graphic="icon"> <span>${epd.name}</span>
+    <mwc-icon slot="graphic">cloud_download</mwc-icon></mwc-list-item>`);
+        let companies = data["companies"].map((company, i) => lit_element__WEBPACK_IMPORTED_MODULE_3__.html `<mwc-list-item value="${i}">${company.name}</mwc-list-item>`);
+        return lit_element__WEBPACK_IMPORTED_MODULE_3__.html `
     <div>
-    <div></div>
-    <mwc-select outlined label="Company">
+    <div>
+    <mwc-select outlined label="Company" @action=${this.onCompanyAction}>
       <mwc-list-item></mwc-list-item>
       <mwc-list-item value="new">Add Company...</mwc-list-item>
-      <mwc-list-item value="0">Hybrid Concrete</mwc-list-item>
-      <mwc-list-item value="1">Northwest Rolling Mix</mwc-list-item>
-      <mwc-list-item value="2">Pacific Mix Concret</mwc-list-item>
-      <mwc-list-item value="3">Great Lakes Concrete</mwc-list-item>
+      ${companies}
     </mwc-select>
-    <mwc-select outlined label="Facility">
+    <mwc-select outlined label="Facility" @action=${this.onFacilityAction}>
       <mwc-list-item></mwc-list-item>
       <mwc-list-item value="new">Add Facility...</mwc-list-item>
-      <mwc-list-item value="0">North Ealing</mwc-list-item>
-      <mwc-list-item value="1">Vancouver BC</mwc-list-item>
-      <mwc-list-item value="2">Richmond BC</mwc-list-item>
-      <mwc-list-item value="3">Toronto</mwc-list-item>
+      ${facilities}
     </mwc-select>
-    <mwc-select outlined label="Survey">
+    <mwc-select outlined label="Survey" @action=${this.onSurveyAction}>
       <mwc-list-item></mwc-list-item>
       <mwc-list-item value="new">New Survey...</mwc-list-item>
-      <mwc-list-item selected value="0">2019</mwc-list-item>
+      ${surveys}
     </mwc-select>
+    ${createButton}
     </div>
     <div>
-    <h2>EPDS</h2>
+    <h3 class="mdc-typography--headline4">EPDs</h3>
     <mwc-list>
-      <mwc-list-item>Mix 01</mwc-list-item>
-      <mwc-list-item>Mix 02</mwc-list-item>
-      <mwc-list-item>Mix 03</mwc-list-item>
-      <mwc-list-item>Mix 04</mwc-list-item>
+      ${epdlist}
     </mwc-list>
     </div>
     </div>
     `;
     }
+    onCompanyAction(e) {
+        this.facilityIndex = -1;
+        this.surveyIndex = -1;
+        this.companyIndex = e.detail.index - 2;
+    }
+    onFacilityAction(e) {
+        this.surveyIndex = -1;
+        this.facilityIndex = e.detail.index - 2;
+    }
+    onSurveyAction(e) {
+        this.surveyIndex = e.detail.index - 2;
+    }
 };
 __decorate([
-    (0,lit_element__WEBPACK_IMPORTED_MODULE_0__.property)(),
+    (0,lit_element__WEBPACK_IMPORTED_MODULE_3__.property)({ type: Number }),
     __metadata("design:type", Object)
-], EpdMockup01Element.prototype, "chosen", void 0);
+], EpdMockup01Element.prototype, "companyIndex", void 0);
+__decorate([
+    (0,lit_element__WEBPACK_IMPORTED_MODULE_3__.property)({ type: Number }),
+    __metadata("design:type", Object)
+], EpdMockup01Element.prototype, "facilityIndex", void 0);
+__decorate([
+    (0,lit_element__WEBPACK_IMPORTED_MODULE_3__.property)({ type: Number }),
+    __metadata("design:type", Object)
+], EpdMockup01Element.prototype, "surveyIndex", void 0);
 EpdMockup01Element = __decorate([
-    (0,lit_element__WEBPACK_IMPORTED_MODULE_0__.customElement)('epd-mockup01')
+    (0,lit_element__WEBPACK_IMPORTED_MODULE_3__.customElement)('epd-mockup01'),
+    __metadata("design:paramtypes", [])
 ], EpdMockup01Element);
 
 
@@ -26176,7 +26290,8 @@ let EpdToolElement = class EpdToolElement extends lit_element__WEBPACK_IMPORTED_
             </mwc-list-item>
       `;
         }
-        return lit_element__WEBPACK_IMPORTED_MODULE_0__.html `<div class="epd-tool">
+        return lit_element__WEBPACK_IMPORTED_MODULE_0__.html `<link rel="stylesheet" href="./mdc.typography.min.css">
+    <div class="epd-tool">
       <mwc-top-app-bar-fixed id="bar">
         <mwc-icon-button icon="menu" slot="navigationIcon"></mwc-icon-button>
         <div slot="title" id="title">${appname}</div>
@@ -26211,7 +26326,7 @@ let EpdToolElement = class EpdToolElement extends lit_element__WEBPACK_IMPORTED_
             return lit_element__WEBPACK_IMPORTED_MODULE_0__.html ``;
         }
         return lit_element__WEBPACK_IMPORTED_MODULE_0__.html `
-    <h2>Welcome to ${appname}</h2>
+    <h3 class="mdc-typography--headline3">Welcome to ${appname}</h3>
     <p>Please <a href="#register">Register</a> or <a href="#login">Sign In</a> to continue.</p>
     `;
     }
