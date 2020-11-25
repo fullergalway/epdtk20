@@ -26109,10 +26109,9 @@ let EpdMockup01Element = class EpdMockup01Element extends lit_element__WEBPACK_I
         }
         let createButton = lit_element__WEBPACK_IMPORTED_MODULE_3__.html ``;
         if (this.surveyIndex >= 0) {
-            createButton = lit_element__WEBPACK_IMPORTED_MODULE_3__.html `<mwc-button raised
-        icon="library_add"
-        label="New Concrete">
-    </mwc-button>`;
+            createButton = lit_element__WEBPACK_IMPORTED_MODULE_3__.html `<mwc-button raised icon="library_add" label="New Concrete"></mwc-button>
+      <mwc-button raised icon="library_add" label="New Precast"></mwc-button>
+      `;
         }
         let epds = data.epds.filter(epd => {
             if (this.companyIndex < 0)
@@ -26142,12 +26141,12 @@ let EpdMockup01Element = class EpdMockup01Element extends lit_element__WEBPACK_I
       ${companies}
     </mwc-select>
     <mwc-select outlined label="Facility" @action=${this.onFacilityAction}>
-      <mwc-list-item></mwc-list-item>
+      <mwc-list-item ?selected=${this.facilityIndex === -2}></mwc-list-item>
       <mwc-list-item value="new">Add Facility...</mwc-list-item>
       ${facilities}
     </mwc-select>
     <mwc-select outlined label="Survey" @action=${this.onSurveyAction}>
-      <mwc-list-item></mwc-list-item>
+      <mwc-list-item ?selected=${this.surveyIndex === -2}></mwc-list-item>
       <mwc-list-item value="new">New Survey...</mwc-list-item>
       ${surveys}
     </mwc-select>
@@ -26163,8 +26162,8 @@ let EpdMockup01Element = class EpdMockup01Element extends lit_element__WEBPACK_I
     `;
     }
     onCompanyAction(e) {
-        this.facilityIndex = -1;
-        this.surveyIndex = -1;
+        this.facilityIndex = -2;
+        this.surveyIndex = -2;
         this.companyIndex = e.detail.index - 2;
     }
     onFacilityAction(e) {
@@ -26290,6 +26289,14 @@ let EpdToolElement = class EpdToolElement extends lit_element__WEBPACK_IMPORTED_
             </mwc-list-item>
       `;
         }
+        let contextMenuItems = lit_element__WEBPACK_IMPORTED_MODULE_0__.html ``;
+        if (this.username) {
+            contextMenuItems = lit_element__WEBPACK_IMPORTED_MODULE_0__.html `
+                  <mwc-list-item group="1" graphic="icon" > <mwc-icon slot="graphic">calculate</mwc-icon><span>Company</span></mwc-list-item>
+            <mwc-list-item group="b" graphic="icon" > <mwc-icon slot="graphic">calculate</mwc-icon><span>Facility</span></mwc-list-item>
+            <mwc-list-item group="b" graphic="icon" > <mwc-icon slot="graphic">calculate</mwc-icon><span>Survey</span></mwc-list-item>
+`;
+        }
         return lit_element__WEBPACK_IMPORTED_MODULE_0__.html `<link rel="stylesheet" href="./mdc.typography.min.css">
     <div class="epd-tool">
       <mwc-top-app-bar-fixed id="bar">
@@ -26305,8 +26312,7 @@ let EpdToolElement = class EpdToolElement extends lit_element__WEBPACK_IMPORTED_
               <span>${this.username ? 'logout' : 'login'}</span>
             </mwc-list-item>
             ${verificationMenuItem}
-            <mwc-list-item>Item 2</mwc-list-item>
-            <mwc-list-item>Item 3</mwc-list-item>
+            ${contextMenuItems}
           </mwc-menu>
         <div id="content">
           <div id="buttons">
